@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PassCache.Middleware;
 
-namespace WebApplication1
+namespace PassCache
 {
     public class Startup
     {
@@ -21,24 +18,25 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
-            }
-            else
+            } else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseMiddleware<EnforceHttps>();
             }
 
             app.UseStaticFiles();
+            
+            app.UseMiddleware<FilterLinkProbes>();
 
             app.UseMvc(routes =>
             {

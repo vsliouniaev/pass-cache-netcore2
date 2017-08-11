@@ -4,12 +4,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication1.Models;
+using PassCache.Models;
 using Microsoft.Extensions.Caching.Memory;
 using System.Security.Cryptography;
 using PassCache;
 
-namespace WebApplication1.Controllers
+namespace PassCache.Controllers
 {
     public class HomeController : Controller
     {
